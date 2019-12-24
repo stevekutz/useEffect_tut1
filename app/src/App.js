@@ -1,26 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useEffect} from 'react';
+import {useState} from 'reinspect';
+import {Input, Segment} from 'semantic-ui-react';
+import {useForm} from './comp/useForm';
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [values, handleChange] = useForm({email: '', password: ''});
+
+    useEffect(() =>{
+
+        console.log('useEffect called, render occured');
+    })
+
+    return (
+        <Segment>
+            <Input
+                name = 'email'
+                value = {values.email}
+                onChange = {handleChange}
+            
+            />
+            <Input 
+                type = 'pasword'
+                name = 'password'
+                value = {values.password}
+                onChange = {handleChange}
+
+            />
+        
+        
+        </Segment>
+    )
+
+
 }
 
 export default App;
