@@ -11,19 +11,20 @@ function App() {
     const [showHello, setShowHello] = useState(true, 'Show Hello State');
 
 
-    const incrementCount = () => {
+    const toggleHello = () => {
         incCount(count + 1);
+        setShowHello(!showHello);
     }
 
     useEffect(() =>{
 
         console.log('useEffect called, render occured');
 
-        incrementCount();
+        // incrementCount();
 
         // cleanup function ==> componentWillUnMount
         return () => {
-            console.log('unmounting')
+            console.log('clean up called')
 
         }   
         
@@ -43,7 +44,10 @@ function App() {
         <Segment>
             <Segment>
                 <Segment.Inline>
-                    <Button toggle active = {showHello}  onClick = {() => {setShowHello(!showHello)}}>Toggle</Button>
+                    <Button toggle active = {showHello}  
+                        onClick = {() => {toggleHello() }}
+                        
+                        >Toggle</Button>
                     {showHello && <Hello />}
                 </Segment.Inline> 
             </Segment>
