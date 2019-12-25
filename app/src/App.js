@@ -17,28 +17,35 @@ function App() {
     }
 
     useEffect(() =>{
-
         console.log('useEffect called, render occured');
-
         // incrementCount();
 
         // cleanup function ==> componentWillUnMount
         return () => {
             console.log('clean up called')
-
         }   
-        
-
-
-
-
     // , 2nd param is "dependency array", compare var to prevstate verify if if updated, if Y then function called    
     // CANNOT just put 'values' into dependency array (e.g. dependencies for that effect )
     // use    }, []); to only call function inside on first render  
     // use    }, [values.password]} only calls when password changes, IGNORES changes to email state 
     // use   }, [values.password, values.email]); // only calls when password OR email changed  
     // }, [count]);   starts continuous re-render
-     }, [values.firstName]); // 
+    }, [values.firstName]); // 
+
+    useEffect(() => {
+        const onMouseMove = e => {
+            console.log(e);
+        }
+        window.addEventListener("mousemove", onMouseMove);
+
+        return () => {
+            console.log('mouseMove cleanup called');
+            incCount(count + 1);
+            window.removeEventListener("mousemove", onMouseMove);
+        }
+
+    }, []);
+
 
     return (
         <Segment>
