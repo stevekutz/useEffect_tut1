@@ -40,7 +40,7 @@ function App() {
 
     // useFetch('http://numbersapi.com/43/trivia');
     // Now returns data and loading boolean
-    const {data, loading} = useFetch(`http://numbersapi.com/${count}/trivia`);
+    const {data, loading, error} = useFetch(`http://numbersapi.com/${count}/trivia`);
 
     return (
         
@@ -57,8 +57,8 @@ function App() {
                                 color = "dodgerblue"
                             />
                         </Container>
-                    :
-                    <Segment compact> {data} </Segment>
+                    :                
+                    <Segment compact> {data}{error} </Segment>
 
                 }
         

@@ -3,7 +3,7 @@ import {useEffect} from 'react';
 import {useState} from 'reinspect';
 
 export const useFetch = (url) => {
-    const [state, setState] = useState({data: null, loading: true}, 'useFetch State')
+    const [state, setState] = useState({data: null, loading: true, error: null}, 'useFetch State')
 
 
     useEffect( () => {
@@ -15,20 +15,20 @@ export const useFetch = (url) => {
         // we access the body of the response using .text()
 
         // initialize state, pass in already data already avail                                              
-        setState(state => ({data: state.data, loading: true}));   
-        fetch(url)
-            .then(res =>  {
-                console.log('Promise is: ', res);
-                console.log('status is: ', res.status);
-                return res.text();
-            })                
-            .then(data => {
-                console.log('data is: ', data);
-                setState({data: data, loading: false})
-            })
-            .catch(err => {   // does not catch asynch errors well
-                return err;
-            })
+        setState(state => ({data: state.data, loading: true, error: null}));   
+        const getData = async () => {
+            try {
+                const res = await fetch(url);
+                
+                const data = await res.text();
+                setState({data: data, loading: false});
+            } catch (err) {
+                console.log('error is: ', err);  
+                setState({error: err.toString()});  
+            }
+        }
+
+        getData();
            
 
     }, [url, setState]);  // YES, we can pass in the updater function  as dependency !!!
@@ -36,7 +36,7 @@ export const useFetch = (url) => {
     return state;
 };
 
-// setState({data: null, loading: true});   // initialize state
+// setState(state => ({data: state.data, loading: true, error: null}));   
 // fetch(url)
 //     .then(res =>  {
 //         console.log('Promise is: ', res);
@@ -45,13 +45,11 @@ export const useFetch = (url) => {
 //     })                
 //     .then(data => {
 //         console.log('data is: ', data);
-//         setState({data: data, loading: false})
-//     }).catch(err => {
-//         return err;
+//         setState({data: data, loading: false});
 //     })
-
-//     return state;
-
+//     .catch(err => {   // does not catch asynch errors well
+//         setState({error: err.toString()});
+//     })
 
 
 // export const useFetch = (url) => {
@@ -87,8 +85,9 @@ export const useFetch = (url) => {
 
 //         let data = await res.text();
 //         console.log("data is ", data);
+//         setState({data: data, loading: false});
 //     } catch (err) {
-//         console.log('error is: ', err);
+//         setState({error: err.toString()});
 //     }
     
 // })()
@@ -102,8 +101,10 @@ export const useFetch = (url) => {
         
 //         let data = await res.text();
 //         console.log("data is ", data);
+//         setState({data: data, loading: false});    
 //     } catch (err) {
-//         console.log('error is: ', err);    
+//         console.log('error is: ', err); 
+//         setState({error: err.toString()});  
 //     }
 // }
 
