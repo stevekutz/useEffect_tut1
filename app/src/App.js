@@ -21,7 +21,7 @@ function App() {
 
     // useFetch('http://numbersapi.com/43/trivia');
     // Now returns data and loading boolean
-    const {data, loading} = useFetch('http://numbersapi.com/43/trivia');
+    const {data, loading} = useFetch(`http://numbersapi.com/${count}/trivia`);
 
     // <JellyfishSpinner
     // size = {550}
@@ -68,7 +68,7 @@ function App() {
             </Segment>
 
 
-            <Label> Count at : {count.toString()}</Label>
+            <Label color = 'pink'> Count at : {count.toString()}</Label>
             <Input
                 name = 'email'
                 value = {values.email}
