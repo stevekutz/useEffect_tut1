@@ -33,6 +33,11 @@ function App() {
         setShowHello(!showHello);
     }
 
+    const resetCount = () => {
+        localStorage.clear();
+        setCount(0);
+    }
+
     // useFetch('http://numbersapi.com/43/trivia');
     // Now returns data and loading boolean
     const {data, loading} = useFetch(`http://numbersapi.com/${count}/trivia`);
@@ -62,7 +67,12 @@ function App() {
                     <Button toggle active = {showHello}  
                         onClick = {() => {toggleHello() }}
                         
-                        >Toggle</Button>
+                    >Toggle</Button>
+                    <Button
+                        onClick = {() => resetCount()}
+                        color = 'pink'    
+                    >Reset count</Button>
+                        
                     {showHello && <Hello />}
                 </Segment.Inline> 
             </Segment>
