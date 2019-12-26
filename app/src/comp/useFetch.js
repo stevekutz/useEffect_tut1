@@ -1,7 +1,11 @@
 // the is a CUSTOM HOOK
 import {useEffect} from 'react';
+import {useState} from 'reinspect';
 
 export const useFetch = (url) => {
+    const [state, setState] = useState({data: null, loading: true})
+
+
     useEffect( () => {
         // use .then approach instead of async/await
         // NOTE this API is text rather than JSON based
@@ -9,23 +13,44 @@ export const useFetch = (url) => {
         // fetch return a Promise
         // if successful, returns response obj
         // we access the body of the response using .text()
-        
-    (async function() {
-        try{
-            let res = await fetch(url);
-            console.log('Promise is: ', res);
-            console.log('status is: ', res.status);
-
-            let data = await res.text();
-            console.log("data is ", data);
-        } catch (err) {
-            console.log('error is: ', err);
-        }
-        
-    })()
+    
+        setState({data: null, loading: true});   // initialize state
+        fetch(url)
+            .then(res =>  {
+                console.log('Promise is: ', res);
+                console.log('status is: ', res.status);
+                return res.text();
+            })                
+            .then(data => {
+                console.log('data is: ', data);
+                setState({data: data, loading: false})
+            }).catch(err => {
+                return err;
+            })
+           
 
     }, [url]);
+
+    return state;
 };
+
+// setState({data: null, loading: true});   // initialize state
+// fetch(url)
+//     .then(res =>  {
+//         console.log('Promise is: ', res);
+//         console.log('status is: ', res.status);
+//         return res.text();
+//     })                
+//     .then(data => {
+//         console.log('data is: ', data);
+//         setState({data: data, loading: false})
+//     }).catch(err => {
+//         return err;
+//     })
+
+//     return state;
+
+
 
 // export const useFetch = (url) => {
 //     useEffect( () => {
@@ -51,17 +76,22 @@ export const useFetch = (url) => {
 //     }, [url]);
 // };
 
-
+//  IIFE version
 // (async function() {
-//     let res = await fetch(url);
-//     console.log('Promise is: ', res);
-//     console.log('status is: ', res.status);
+//     try{
+//         let res = await fetch(url);
+//         console.log('Promise is: ', res);
+//         console.log('status is: ', res.status);
+
+//         let data = await res.text();
+//         console.log("data is ", data);
+//     } catch (err) {
+//         console.log('error is: ', err);
+//     }
     
-//     let data = await res.text();
-//     console.log("data is ", data);
 // })()
 
-
+// Function declaration
 // async function getData () {
 //     try {
 //         let res = await fetch(url);
@@ -77,6 +107,10 @@ export const useFetch = (url) => {
 
 // getData();
 
+
+
+
+//  ARROW FUNCTION
 // const getData = async () => {
 //     try {
 //         let res = await fetch(url);

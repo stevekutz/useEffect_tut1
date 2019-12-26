@@ -1,9 +1,10 @@
 import React, {useEffect} from 'react';
 import {useState} from 'reinspect';
-import {Button, Input, Label, Segment} from 'semantic-ui-react';
+import {Button, Container, Dimmer, Input, Label, Loader, Segment} from 'semantic-ui-react';
 import {useForm} from './comp/useForm';
 import {Hello} from './comp/Hello'; // ERROR if ==>  import Hello from './comp/Hello';
 import {useFetch} from './comp/useFetch';  // CUSTOM HOOK
+import {JellyfishSpinner} from 'react-spinners-kit';
 
 
 function App() {
@@ -18,12 +19,44 @@ function App() {
         setShowHello(!showHello);
     }
 
-    // http://numbersapi.com/${count}/trivia`
+    // useFetch('http://numbersapi.com/43/trivia');
+    // Now returns data and loading boolean
+    const {data, loading} = useFetch('http://numbersapi.com/43/trivia');
 
-    useFetch('http://numbersapi.com/43/trivia');
+    // <JellyfishSpinner
+    // size = {550}
+    // color = "dodgerblue"
+
+    // />
 
     return (
+        
         <Segment>
+            
+                {loading
+                    ?   
+                        <Container>
+                            <Dimmer active>
+                                <Loader/>
+                            </Dimmer>
+                            <JellyfishSpinner
+                                size = {150}
+                                color = "dodgerblue"
+
+                            />
+                        
+                        
+                        </Container>
+
+
+                    :
+                    <Segment compact text > {data} </Segment>
+
+                }
+                    {/* <Container text > {data} </Container>  */}
+            
+           
+        
             <Segment>
                 <Segment.Inline>
                     <Button toggle active = {showHello}  
