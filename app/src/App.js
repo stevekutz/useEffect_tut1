@@ -9,25 +9,33 @@ import {JellyfishSpinner} from 'react-spinners-kit';
 
 function App() {
     const [values, handleChange] = useForm({email: '', password: '', firstName: ''});
-    const [count, incCount] = useState(0, 'Count State');
+    //const [count, incCount] = useState(0, 'Count State');
     const [showHello, setShowHello] = useState(true, 'Show Hello State');
 
+    // set up initializer function for count based on local storage
+    const [count, setCount] = useState( () => 
+        {
+            if(localStorage.getItem('count') === null){
+                return 0
+            } else {
+                return JSON.parse(localStorage.getItem('count'))
+            }
+        }   
+    );
 
+    // to persist the value of count
+    useEffect(()=>{
+        localStorage.setItem('count', JSON.stringify(count))
+    }, [count]);
 
     const toggleHello = () => {
-        incCount(count + 1);
+        setCount(count + 1);
         setShowHello(!showHello);
     }
 
     // useFetch('http://numbersapi.com/43/trivia');
     // Now returns data and loading boolean
     const {data, loading} = useFetch(`http://numbersapi.com/${count}/trivia`);
-
-    // <JellyfishSpinner
-    // size = {550}
-    // color = "dodgerblue"
-
-    // />
 
     return (
         
@@ -42,20 +50,12 @@ function App() {
                             <JellyfishSpinner
                                 size = {150}
                                 color = "dodgerblue"
-
                             />
-                        
-                        
                         </Container>
-
-
                     :
-                    <Segment compact text > {data} </Segment>
+                    <Segment compact> {data} </Segment>
 
                 }
-                    {/* <Container text > {data} </Container>  */}
-            
-           
         
             <Segment>
                 <Segment.Inline>
