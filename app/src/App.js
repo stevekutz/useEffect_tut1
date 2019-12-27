@@ -47,7 +47,6 @@ function App() {
     return (
         
         <Segment>
-
             <Segment.Group horizontal>
                 <Segment>
                     {loadingLeft
@@ -128,15 +127,11 @@ function App() {
                             size = 'small'    
                         />
                     </Col>
-                
-                
-                
+
                 </Row>
             </Segment>        
-        
         </Segment>
     )
-
 
 }
 
