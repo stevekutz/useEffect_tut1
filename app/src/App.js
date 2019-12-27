@@ -1,12 +1,12 @@
 import React, {useEffect} from 'react';
 import {useState} from 'reinspect';
-import {Button, Container, Dimmer, Input, Label, Loader, Segment} from 'semantic-ui-react';
+import {Button, Container, Dimmer, Label, Loader, Segment} from 'semantic-ui-react';
 import {useForm} from './comp/useForm';
 import {Hello} from './comp/Hello'; // ERROR if ==>  import Hello from './comp/Hello';
 import {useFetch} from './comp/useFetch';  // CUSTOM HOOK
 import {useAxios} from './comp/useAxios'; // CUSTOM HOOK
 import {JellyfishSpinner} from 'react-spinners-kit';
-import {Spin, Alert} from 'antd';
+import {Col, Icon, Input, Row, Spin} from 'antd';
 
 
 function App() {
@@ -72,11 +72,7 @@ function App() {
                         ?   
                             <Container>
                                 <Spin tip="Loading...">
-                                    <Alert
-                                    message="Alert message title"
-                                    description="Further details about the context of this alert."
-                                    type="info"
-                                />
+                                <Icon type="setting" theme="twoTone" twoToneColor="#eb2f96" spin />
                             </Spin>
                             </Container>
                         :                
@@ -109,29 +105,44 @@ function App() {
 
 
             <Label color = 'pink'> Count at : {count.toString()}</Label>
-            <Input
-                name = 'email'
-                value = {values.email}
-                placeholder = 'email'
-                onChange = {handleChange}
-            
-            />
-            <Input
-                name = 'firstName'
-                placeholder = 'first name'
-                value = {values.firstName}
-                onChange = {handleChange}
-        
-            />
-            <Input 
-                type = 'password'
-                name = 'password'
-                placeholder = 'password'
-                value = {values.password}
-                onChange = {handleChange}
 
-            />
-        
+            <Segment>
+                <Row>
+                    <Col sm={{ span: 0, offset: 0 }} lg={{ span: 6, offset: 1 }}>
+                        <Input
+                            name = 'email'
+                            value = {values.email}
+                            placeholder = 'email'
+                            onChange = {handleChange}
+                            size = 'default'
+                        />
+                    </Col>        
+
+                    <Col sm={{ span: 2, offset: 2 }} lg={{ span: 6, offset: 2 }}>
+                        <Input
+                            name = 'firstName'
+                            placeholder = 'first name'
+                            value = {values.firstName}
+                            onChange = {handleChange}
+                            size = 'small'    
+                        />
+                    </Col>
+
+                    <Col sm={{ span: 2, offset: 1 }} lg={{ span: 6, offset: 2 }}>
+                        <Input.Password 
+                            type = 'password'
+                            name = 'password'
+                            placeholder = 'password'
+                            value = {values.password}
+                            onChange = {handleChange}
+                            size = 'small'    
+                        />
+                    </Col>
+                
+                
+                
+                </Row>
+            </Segment>        
         
         </Segment>
     )
