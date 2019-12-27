@@ -16,6 +16,7 @@ export const useFetch = (url) => {
 
         // initialize state, pass in already dataLeft already avail                                              
         setState(state => ({dataLeft: state.dataLeft, loadingLeft: true, errorLeft: null}));   
+        
         const getDataLeft = async () => {
             try {
                 const res = await fetch(url);                

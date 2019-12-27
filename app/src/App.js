@@ -11,9 +11,9 @@ import {Col, Icon, Input, Row, Spin} from 'antd';
 
 function App() {
     const [values, handleChange] = useForm({email: '', password: '', firstName: ''});
-    //const [count, incCount] = useState(0, 'Count State');
     const [showHello, setShowHello] = useState(true, 'Show Hello State');
 
+    // const [count, incCount] = useState(0, 'Count State');
     // set up initializer function for count based on local storage
     const [count, setCount] = useState( () => 
         {
@@ -25,7 +25,7 @@ function App() {
         }   
     );
 
-    // to persist the value of count
+    // to persist the value of count upon browser 
     useEffect(()=>{
         localStorage.setItem('count', JSON.stringify(count))
     }, [count]);
@@ -40,8 +40,7 @@ function App() {
         setCount(0);
     }
 
-    // useFetch('http://numbersapi.com/43/trivia');
-    // Now returns data and loading boolean
+    // dataLeft returns text, dataRight returns JSON
     const {dataLeft, loadingLeft, errorLeft} = useFetch(`http://numbersapi.com/${count}/trivia`);
     const {dataRight, loadingRight, errorRight} = useAxios(`http://numbersapi.com/${count}/trivia?json`);
 
@@ -64,7 +63,6 @@ function App() {
                             </Container>
                         :                
                         <Segment compact> {dataLeft}{errorLeft} </Segment>
-
                     }
                 </Segment>
                 <Segment>
@@ -77,16 +75,9 @@ function App() {
                             </Container>
                         :                
                         <Segment compact> {dataRight}{errorRight} </Segment>
-
                     }                
-                </Segment>    
-            
-            
-            
-            
+                </Segment>               
             </Segment.Group>
-
-
         
             <Segment>
                 <Segment.Inline>
@@ -99,10 +90,9 @@ function App() {
                         color = 'pink'    
                     >Reset count</Button>
                         
-                    {showHello && <Hello />}
+                    {showHello && <Hello/>}
                 </Segment.Inline> 
             </Segment>
-
 
             <Label color = 'pink'> Count at : {count.toString()}</Label>
 
@@ -161,7 +151,7 @@ export default App;
 //     return () => {
 //         console.log('clean up called')
 //     }   
-// // , 2nd param is "dependency array", compare var to prevstate verify if if updated, if Y then function called    
+// // , 2nd param is "dependency array", compare var to prevstate verify if if updated, if YES then function called    
 // // CANNOT just put 'values' into dependency array (e.g. dependencies for that effect )
 // // use    }, []); to only call function inside on first render  
 // // use    }, [values.password]} only calls when password changes, IGNORES changes to email state 

@@ -12,14 +12,11 @@ export const useAxios = (url) => {
         const getAxios = async () => {
             try{
                 const resp = await axios(url);
-                console.log('axios reso ', resp);
                 const dataRight = await resp.data.text;
-                console.log('axios data ', dataRight);
 
                 setTimeout(()=> {
                     setState({dataRight: dataRight, loadingRight: false, errorRight: null})
                 }, 3000);
-
 
             } catch (err) {
                 setState({errorRight: err.toString()})
