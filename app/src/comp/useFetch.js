@@ -3,7 +3,7 @@ import {useEffect} from 'react';
 import {useState} from 'reinspect';
 
 export const useFetch = (url) => {
-    const [state, setState] = useState({data: null, loading: true, error: null}, 'useFetch State')
+    const [state, setState] = useState({dataLeft: null, loadingLeft: true, errorLeft: null}, 'useFetch State')
 
 
     useEffect( () => {
@@ -14,21 +14,19 @@ export const useFetch = (url) => {
         // if successful, returns response obj
         // we access the body of the response using .text()
 
-        // initialize state, pass in already data already avail                                              
-        setState(state => ({data: state.data, loading: true, error: null}));   
-        const getData = async () => {
+        // initialize state, pass in already dataLeft already avail                                              
+        setState(state => ({dataLeft: state.dataLeft, loadingLeft: true, errorLeft: null}));   
+        const getDataLeft = async () => {
             try {
-                const res = await fetch(url);
-                
-                const data = await res.text();
-                setState({data: data, loading: false});
+                const res = await fetch(url);                
+                const dataLeft = await res.text();
+                setState({dataLeft: dataLeft, loadingLeft: false});
             } catch (err) {
-                console.log('error is: ', err);  
-                setState({error: err.toString()});  
+                setState({errorLeft: err.toString()});  
             }
         }
 
-        getData();
+        getDataLeft();
            
 
     }, [url, setState]);  // YES, we can pass in the updater function  as dependency !!!

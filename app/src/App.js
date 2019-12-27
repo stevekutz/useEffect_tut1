@@ -4,6 +4,7 @@ import {Button, Container, Dimmer, Input, Label, Loader, Segment} from 'semantic
 import {useForm} from './comp/useForm';
 import {Hello} from './comp/Hello'; // ERROR if ==>  import Hello from './comp/Hello';
 import {useFetch} from './comp/useFetch';  // CUSTOM HOOK
+import {useAxios} from './comp/useAxios'; // CUSTOM HOOK
 import {JellyfishSpinner} from 'react-spinners-kit';
 
 
@@ -40,27 +41,55 @@ function App() {
 
     // useFetch('http://numbersapi.com/43/trivia');
     // Now returns data and loading boolean
-    const {data, loading, error} = useFetch(`http://numbersapi.com/${count}/trivia`);
+    const {dataLeft, loadingLeft, errorLeft} = useFetch(`http://numbersapi.com/${count}/trivia`);
+    const {dataRight, loadingRight, errorRight} = useAxios(`http://numbersapi.com/${count}/trivia`);
 
     return (
         
         <Segment>
             
-                {loading
-                    ?   
-                        <Container>
-                            <Dimmer active>
-                                <Loader/>
-                            </Dimmer>
-                            <JellyfishSpinner
-                                size = {150}
-                                color = "dodgerblue"
-                            />
-                        </Container>
-                    :                
-                    <Segment compact> {data}{error} </Segment>
+            <Segment.Group horizontal>
+                <Segment>
+                    {loadingLeft
+                        ?   
+                            <Container>
+                                <Dimmer active>
+                                    <Loader/>
+                                </Dimmer>
+                                <JellyfishSpinner
+                                    size = {150}
+                                    color = "dodgerblue"
+                                />
+                            </Container>
+                        :                
+                        <Segment compact> {dataLeft}{errorLeft} </Segment>
 
-                }
+                    }
+                </Segment>
+                <Segment>
+                    {loadingRight
+                        ?   
+                            <Container>
+                                <Dimmer active>
+                                    <Loader/>
+                                </Dimmer>
+                                <JellyfishSpinner
+                                    size = {150}
+                                    color = "dodgerblue"
+                                />
+                            </Container>
+                        :                
+                        <Segment compact> {dataRight}{errorRight} </Segment>
+
+                    }                
+                </Segment>    
+            
+            
+            
+            
+            </Segment.Group>
+
+
         
             <Segment>
                 <Segment.Inline>
