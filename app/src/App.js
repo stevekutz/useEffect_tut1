@@ -6,6 +6,7 @@ import {Hello} from './comp/Hello'; // ERROR if ==>  import Hello from './comp/H
 import {useFetch} from './comp/useFetch';  // CUSTOM HOOK
 import {useAxios} from './comp/useAxios'; // CUSTOM HOOK
 import {JellyfishSpinner} from 'react-spinners-kit';
+import {Spin, Alert} from 'antd';
 
 
 function App() {
@@ -42,12 +43,12 @@ function App() {
     // useFetch('http://numbersapi.com/43/trivia');
     // Now returns data and loading boolean
     const {dataLeft, loadingLeft, errorLeft} = useFetch(`http://numbersapi.com/${count}/trivia`);
-    const {dataRight, loadingRight, errorRight} = useAxios(`http://numbersapi.com/${count}/trivia`);
+    const {dataRight, loadingRight, errorRight} = useAxios(`http://numbersapi.com/${count}/trivia?json`);
 
     return (
         
         <Segment>
-            
+
             <Segment.Group horizontal>
                 <Segment>
                     {loadingLeft
@@ -70,13 +71,13 @@ function App() {
                     {loadingRight
                         ?   
                             <Container>
-                                <Dimmer active>
-                                    <Loader/>
-                                </Dimmer>
-                                <JellyfishSpinner
-                                    size = {150}
-                                    color = "dodgerblue"
+                                <Spin tip="Loading...">
+                                    <Alert
+                                    message="Alert message title"
+                                    description="Further details about the context of this alert."
+                                    type="info"
                                 />
+                            </Spin>
                             </Container>
                         :                
                         <Segment compact> {dataRight}{errorRight} </Segment>

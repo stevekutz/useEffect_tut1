@@ -13,7 +13,7 @@ export const useAxios = (url) => {
             try{
                 const resp = await axios(url);
                 console.log('axios reso ', resp);
-                const dataRight = await resp.data;
+                const dataRight = await resp.data.text;
                 console.log('axios data ', dataRight);
                 setState({dataRight: dataRight, loadingRight: false, errorRight: null})
             } catch (err) {
