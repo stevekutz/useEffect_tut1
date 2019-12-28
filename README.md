@@ -2,7 +2,7 @@
 ## useEffect Tutorial
 ### The useEffect hook help control component re-renders using a dependency array. Only items that change in the dependency array cause the useEffect hook to run. A cleanup function can also be used within the useEffect hook. Code highlights are described below.
 <div>
-    <img style = 'margin: 10px' src = 'app/src/content/useEffect_tutorial.gif' alt = 'useEffect tutorial' width = '45%'/>
+    <img style = 'margin: 10px' src = 'app/src/content/useEffect_tutorial.gif' alt = 'useEffect tutorial' width = '80%'/>
 </div>
 
 
