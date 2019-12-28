@@ -93,7 +93,7 @@
         }    
     })()
     ~~~
-    A version that uses `.next` instead of `async/await` is shown below.
+    A version that uses `.then` instead of `async/await` is shown below.
     ~~~ js
     fetch(url)
         .then(res =>  {
@@ -134,10 +134,10 @@
     }, [url, setState]);
 
     return state;
-}
+    }
     ~~~
 
-Based on useEffect tutorial `https://github.com/benawad/react-hooks-tutorial/tree/master/src`. 
+## Setup and config 
 1) ### Set up React app `yarn create react-app app`
 
 2) ### Add app Dependencies  (several added for future styling)
