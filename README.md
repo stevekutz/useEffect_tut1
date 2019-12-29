@@ -5,15 +5,14 @@
     <img style = 'margin: 10px' src = 'app/src/content/useEffect_tutorial.gif' alt = 'useEffect tutorial' width = '80%'/>
 </div>
 
-
+### The Numbers API is used to provide fun data for the fetch & axios calls.
 
 #### Based upon the fantastic Ben Awad tutorial `React Hooks useEffect Tutorial` with some formatting using:
     - `Semantic UI React`
     - `Ant Design` 
     - `React Spinners Kit`
-
-
-- ### All of the inputs are handled with the `useForm` component.
+#### Branches corresponding to time stamps(e.g. min_3-20)
+- ### All of the inputs are handled with the `useForm` component. otice that the return statement uses `[ ]`  instead of `( )` in order to return the iterable content.
     ~~~ js
     const [values, handleChange] = useForm({email: '', password: '', firstName: ''});
     ~~~
