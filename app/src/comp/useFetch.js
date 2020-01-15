@@ -1,4 +1,4 @@
-// the is a CUSTOM HOOK
+// this is a CUSTOM HOOK
 import {useEffect} from 'react';
 import {useState} from 'reinspect';
 
